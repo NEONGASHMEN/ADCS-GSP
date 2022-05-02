@@ -1,4 +1,4 @@
-n = 350;                    %%No of turns
+n = 525;                    %%No of turns
 rodRadius = 2.85e-3;           %%torquer rod
 muR = 1453;                 %%steel core
 length = 86e-3;
