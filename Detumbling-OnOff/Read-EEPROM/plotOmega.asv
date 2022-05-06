@@ -1,0 +1,10 @@
+clc
+close all
+clear 
+
+raw1 = importdata('output_protumbling.txt');
+raw2 = importdata('output_detumbling.txt');
+
+fig = figure();
+plot(raw1(:,1),raw1(:,2));
+plot(raw2(:,1),raw2(:,2));
