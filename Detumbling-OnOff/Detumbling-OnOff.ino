@@ -108,7 +108,7 @@ void find_error()                                             //finding gyro err
     W[0] = Wire.read() << 8 | Wire.read();
     W[1] = Wire.read() << 8 | Wire.read();
     W[2] = Wire.read() << 8 | Wire.read();
-    // Sum all readings
+    
     Wx_e = Wx_e + (W[0] / 32.8);
     Wy_e = Wy_e + (W[1] / 32.8);                              //LSB per unit is 32.8 for +/-1000deg/sec range
     Wz_e = Wz_e + (W[2] / 32.8);
@@ -157,7 +157,7 @@ void loop() {
   float muXb_hat[3];                                            //muXb_hat gives direction of torque
   unify(muXb,muXb_hat);
 
-  if(muXb_hat[2] < 0)
+  if(muXb_hat[2]*W[2] < 0)
   {
     analogWrite(rodX,255);                                      //NB: direction of mu is paralell to X - axis of the body frame (magnetometer)
     digitalWrite(coil_LED,HIGH);
@@ -202,7 +202,7 @@ void loop() {
   Serial.print("  ");
   Serial.print(muXb_hat[2]);
   Serial.print("\t");
-  Serial.print(W[2]),6);
+  Serial.print(W[2],6);
   Serial.println("  ");
   
 
