@@ -14,11 +14,11 @@ float B[3];
 float B_hat[3];
 float W[3];
 float Wx_e,Wy_e,Wz_e;
-int rodX = 7;
-int rodX_ = 8;
-int t_in_S;
+int rodX = 8;
+int rodX_ = 7;
+unsigned long t_in_S;
 int rom_add = 0;
-int last_mill = 0;
+unsigned long last_mill = 0;
 
 void setup() {
 
@@ -157,7 +157,7 @@ void loop() {
   float muXb_hat[3];                                            //muXb_hat gives direction of torque
   unify(muXb,muXb_hat);
 
-  if(muXb_hat[2]*W[2] < 0)
+  if(muXb_hat[2] < 0)
   {
     analogWrite(rodX,255);                                      //NB: direction of mu is paralell to X - axis of the body frame (magnetometer)
     digitalWrite(coil_LED,HIGH);
@@ -171,12 +171,12 @@ void loop() {
     analogWrite(rodX_,255);
   }
 
-  if (rom_add<4096 && (millis()-last_mill)>100)
+  if (rom_add<   && (millis()-last_mill)>100)
   {
       float omgZ = abs(W[2]);
       t_in_S = millis();
                                                                 //Write the values of omega and time in the ROM
-      EEPROM.put(rom_add,omgZ);
+      EEPROM.put(rom_add,omgZ);                                 // 
       EEPROM.put(rom_add+sizeof(omgZ),t_in_S);
 
       rom_add = rom_add + sizeof(omgZ)+sizeof(t_in_S);

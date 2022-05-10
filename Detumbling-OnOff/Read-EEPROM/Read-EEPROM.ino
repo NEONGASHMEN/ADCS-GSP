@@ -1,13 +1,13 @@
-#include<EEPROM.h>
+  #include<EEPROM.h>
 
 int rom_add = 0;
 float omegaZ;
-int t_in_s;
+unsigned long t_in_s;
 
 void setup() {
   
   Serial.begin(9600);
-  Serial.print("Address:\t\tValue:\t\tTime:");
+//  Serial.print("Address:\t\tValue:\t\tTime:");
 
 }
 
@@ -22,6 +22,6 @@ void loop() {
       Serial.println(EEPROM.get(rom_add+sizeof(omegaZ),t_in_s));
 
       rom_add = rom_add + sizeof(omegaZ)+sizeof(t_in_s);
-      delay(100);
+      delay(10);
     }
 }
