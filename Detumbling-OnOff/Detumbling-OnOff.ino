@@ -26,10 +26,9 @@ void setup() {
   pinMode(idle_LED, OUTPUT);
   pinMode(idle_Pin,INPUT_PULLUP);
   while(digitalRead(idle_Pin))
-  {
-    //idle mode                                             //switch when on prevents the code from running
+  {                                                           //switch when on prevents the code from running
     digitalWrite(idle_LED, HIGH);
-    delay(500);
+    delay(500);                                               //idle mode 
     digitalWrite(idle_LED, LOW);
     delay(500);
     
@@ -157,7 +156,7 @@ void loop() {
   float muXb_hat[3];                                            //muXb_hat gives direction of torque
   unify(muXb,muXb_hat);
 
-  if(muXb_hat[2] < 0)
+  if(muXb_hat[2]*W[2] < 0)
   {
     analogWrite(rodX,255);                                      //NB: direction of mu is paralell to X - axis of the body frame (magnetometer)
     digitalWrite(coil_LED,HIGH);
@@ -171,12 +170,12 @@ void loop() {
     analogWrite(rodX_,255);
   }
 
-  if (rom_add<   && (millis()-last_mill)>100)
+  if (rom_add<4096 && (millis()-last_mill)>100)
   {
-      float omgZ = abs(W[2]);
+      float omgZ = W[2];
       t_in_S = millis();
-                                                                //Write the values of omega and time in the ROM
-      EEPROM.put(rom_add,omgZ);                                 // 
+                                                                
+      EEPROM.put(rom_add,omgZ);                                 //Write the values of omega and time in the ROM 
       EEPROM.put(rom_add+sizeof(omgZ),t_in_S);
 
       rom_add = rom_add + sizeof(omgZ)+sizeof(t_in_S);

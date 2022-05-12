@@ -12,7 +12,7 @@ disp('Sim started');
 
 tic
 global BB Bfieldmeasured pqrdotmeasured current voltage muB torq
-global Bfieldnav pqrdotnav Bfieldnavprev pqrdotnavprev trgt
+global Bfieldnav pqrdotnav Bfieldnavprev pqrdotnavprev trgt invI
 
 %%Earth and orbit params
 Earth
@@ -127,9 +127,7 @@ for i = 1:length(tout)
     torqmatrix(i,2) = torq(2);
     torqmatrix(i,3) = torq(3);
     
-    angaccmatrix(i,1) = torq(1)*0.006;
-    angaccmatrix(i,1) = torq(1)*0.006;
-    angaccmatrix(i,1) = torq(1)*0.006;
+    angaccmatrix(i,:) = invI*torq;
     
     if (trgt == 1) & (deed == 0)
         t_dtmbl = i;

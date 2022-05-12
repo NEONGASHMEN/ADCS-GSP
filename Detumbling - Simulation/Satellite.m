@@ -56,9 +56,14 @@ LMN_magtorquers = cross(muB,BB);
 %%%Rotational Dynamics
 PQRMAT = [0 -pdot -qdot -rdot;pdot 0 rdot -qdot;qdot -rdot 0 pdot;rdot qdot -pdot 0];
 q0123dot = 0.5*PQRMAT*q0123;
+if abs(pqrdot(3)) > 1*pi/180;
+    bearingFriction = I*[0;0;-5*pi/180];
+else 
+    bearingFriction = [0;0;0];
+end
 H = I*pqrdot;
-pqrddot = invI*(LMN_magtorquers - cross(pqrdot,H));
-torq = LMN_magtorquers - cross(pqrdot,H);
+torq = LMN_magtorquers + bearingFriction - cross(pqrdot,H);
+pqrddot = invI*torq;
 
 derivative = [vel;acc;q0123dot;pqrddot];
 
