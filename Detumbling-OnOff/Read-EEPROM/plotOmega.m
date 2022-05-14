@@ -14,15 +14,15 @@ Draw5 = importdata('./11-05/detumb_5.txt');
 Draw5(:,2) = abs(Draw5(:,2));
 D = {Draw1,Draw2,Draw3,Draw4,Draw5};
 
-Traw1 = importdata('./11-05/tumb_1.txt');
+Traw1 = importdata('./13-05/tumb_1.txt');
 Traw1(:,2) = abs(Traw1(:,2));
-Traw2 = importdata('./11-05/tumb_2.txt');
+Traw2 = importdata('./13-05/tumb_2.txt');
 Traw2(:,2) = abs(Traw2(:,2));
-Traw3 = importdata('./11-05/tumb_3.txt');
+Traw3 = importdata('./13-05/tumb_3.txt');
 Traw3(:,2) = abs(Traw3(:,2));
-Traw4 = importdata('./11-05/tumb_4.txt');
+Traw4 = importdata('./13-05/tumb_4.txt');
 Traw4(:,2) = abs(Traw4(:,2));
-Traw5 = importdata('./11-05/tumb_5.txt');
+Traw5 = importdata('./13-05/tumb_5.txt');
 Traw5(:,2) = abs(Traw5(:,2));
 T = {Traw1,Traw2,Traw3,Traw4,Traw5};
 
@@ -35,20 +35,22 @@ Acc_De4 = zeros(size(Draw4(:,1)));
 Acc_De5 = zeros(size(Draw5(:,1)));
 
 Acc_Tum1 = zeros(size(Traw1(:,1)));
-Acc_Tum2 = zeros(size(Traw1(:,1)));
-Acc_Tum3 = zeros(size(Traw1(:,1)));
-Acc_Tum4 = zeros(size(Traw1(:,1)));
-Acc_Tum5 = zeros(size(Traw1(:,1)));
+Acc_Tum2 = zeros(size(Traw2(:,1)));
+Acc_Tum3 = zeros(size(Traw3(:,1)));
+Acc_Tum4 = zeros(size(Traw4(:,1)));
+Acc_Tum5 = zeros(size(Traw5(:,1)));
 
 Acc_De = {Acc_De1,Acc_De2,Acc_De3,Acc_De4,Acc_De5};
 Acc_Tum = {Acc_Tum1,Acc_Tum2,Acc_Tum3,Acc_Tum4,Acc_Tum5};
 
 for i = 1:5
-    idx = size(Acc_De{i});
-    for j = 1:(idx(1)-1)
+    idx1 = size(Acc_De{i});
+    for j = 1:(idx1(1)-1)
         Acc_De{i}(j,1) = (D{i}(j,2)-D{i}(j+1,2))*1000/(D{i}(j+1,3)-D{i}(j,3));
-        Acc_Tum{i}(j,1) = (T{i}(j,2)-T{i}(j+1,2))*1000/(T{i}(j+1,3)-T{i}(j,3));
-        
+    end
+    idx2 = size(Acc_Tum{i});
+    for k = 1:(idx2(1)-1)
+        Acc_Tum{i}(k,1) = (T{i}(k,2)-T{i}(k+1,2))*1000/(T{i}(k+1,3)-T{i}(k,3));
     end
 end
 
@@ -64,12 +66,12 @@ out{1,6} = "Test 5";
 out{1,7} = "Mean";
 out{2,1} = "Avrg Acceleration: ";
 out{3,1} = "Max Acceleration: ";
-out{4,1} = "Detumbling time: ";
+out{4,1} = "Detumbling time (from 700deg/s): ";
 
 for i = 1:5
     out{2,i+1} = num2str(mean(Acc_De{i}(:,1)));
     out{3,i+1} = num2str(max(Acc_De{i}(:,1)));
-    out{4,i+1} = num2str((D_timeDelta(i,1)/1000)+(D_omegaLast(i,1)/mean(Acc_De{i}(:,1))));
+    out{4,i+1} = num2str(700/mean(Acc_De{i}(:,1)));
 end
 for i = 1:3
     out{i+1,7} = num2str(mean([str2num(out{i+1,2}) str2num(out{i+1,3}) str2num(out{i+1,4}) str2num(out{i+1,5}) str2num(out{i+1,6})]));
@@ -89,7 +91,7 @@ out{1,6} = "Test 5";
 out{1,7} = "Mean";
 out{2,1} = "Avrg Acceleration: ";
 out{3,1} = "Max Acceleration: ";
-out{4,1} = "Detumbling time: ";
+out{4,1} = "Detumbling time (from 700deg/s): ";
 
 for i = 1:5
     out{2,i+1} = num2str(mean(Acc_Tum{i}(:,1)));
@@ -107,27 +109,27 @@ writecell(out,"Output-Tumbling.csv");
 fig1 = figure();
 
 %%Plot detumbling omegas
-plot(Draw1(:,1),Draw1(:,2),'r');
+plot(Draw1(:,1),Draw1(:,2),'b');
 hold on;
-plot(Draw2(:,1),Draw2(:,2),'g');
-hold on;
-plot(Draw3(:,1),Draw3(:,2),'b');
-hold on;
-plot(Draw4(:,1),Draw4(:,2),'b');
-hold on;
-plot(Draw5(:,1),Draw5(:,2),'b');
-hold on;
+% plot(Draw2(:,1),Draw2(:,2),'b');
+% hold on;
+% plot(Draw3(:,1),Draw3(:,2),'b');
+% hold on;
+% plot(Draw4(:,1),Draw4(:,2),'b');
+% hold on;
+% plot(Draw5(:,1),Draw5(:,2),'b');
+% hold on;
 
 %%Plot tumbling omegas
-plot(Traw3(:,1),Traw3(:,2),'r');
+plot(Traw1(:,1),Traw1(:,2),'r');
+hold on;
+plot(Traw2(:,1),Traw2(:,2),'r');
 hold on;
 plot(Traw3(:,1),Traw3(:,2),'r');
 hold on;
-plot(Traw3(:,1),Traw3(:,2),'r');
+plot(Traw4(:,1),Traw4(:,2),'r');
 hold on;
-plot(Traw3(:,1),Traw3(:,2),'r');
-hold on;
-plot(Traw3(:,1),Traw3(:,2),'r');
+plot(Traw5(:,1),Traw5(:,2),'r');
 
 fig2 = figure();
 
