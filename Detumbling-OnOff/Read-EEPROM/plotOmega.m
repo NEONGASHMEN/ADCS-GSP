@@ -4,9 +4,9 @@ clear
 
 Draw1 = importdata('./11-05/detumb_1.txt');
 Draw1(:,2) = abs(Draw1(:,2));
-Draw2 = importdata('./11-05/tumb_1.txt');
+Draw2 = importdata('./14-05/detumb_1.txt');
 Draw2(:,2) = abs(Draw2(:,2));
-Draw3 = importdata('./11-05/detumb_3.txt');
+Draw3 = importdata('./14-05/detumb_2.txt');
 Draw3(:,2) = abs(Draw3(:,2));
 Draw4 = importdata('./11-05/detumb_4.txt');
 Draw4(:,2) = abs(Draw4(:,2));
@@ -111,10 +111,10 @@ fig1 = figure();
 %%Plot detumbling omegas
 plot(Draw1(:,1),Draw1(:,2),'b');
 hold on;
-% plot(Draw2(:,1),Draw2(:,2),'b');
-% hold on;
-% plot(Draw3(:,1),Draw3(:,2),'b');
-% hold on;
+plot(Draw2(:,1),Draw2(:,2),'g');
+hold on;
+plot(Draw3(:,1),Draw3(:,2),'g');
+hold on;
 % plot(Draw4(:,1),Draw4(:,2),'b');
 % hold on;
 % plot(Draw5(:,1),Draw5(:,2),'b');

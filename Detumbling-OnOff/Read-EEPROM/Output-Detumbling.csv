@@ -1,4 +1,4 @@
 ,Test 1,Test 2,Test 3,Test 4,Test 5,Mean
-Avrg Acceleration: ,8.7187,5.0447,NaN,-18.2575,-24.8543,NaN
-Max Acceleration: ,25.5285,85.5469,Inf,1367.5,161.25,Inf
-Detumbling time (from 700deg/s): ,80.2875,138.76,NaN,-38.3404,-28.1641,NaN
+Avrg Acceleration: ,8.7187,5.0176,9.0482,-18.2575,-24.8543,-4.0655
+Max Acceleration: ,25.5285,28.5484,26.9167,1367.5,161.25,321.9487
+Detumbling time (from 700deg/s): ,80.2875,139.5088,77.3638,-38.3404,-28.1641,46.1311
