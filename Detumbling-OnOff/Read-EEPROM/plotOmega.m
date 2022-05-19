@@ -16,7 +16,7 @@ D = {Draw1,Draw2,Draw3,Draw4,Draw5};
 
 Traw1 = importdata('./13-05/tumb_1.txt');
 Traw1(:,2) = abs(Traw1(:,2));
-Traw2 = importdata('./13-05/tumb_2.txt');
+Traw2 = importdata('./19-05/tumb_1.txt');
 Traw2(:,2) = abs(Traw2(:,2));
 Traw3 = importdata('./13-05/tumb_3.txt');
 Traw3(:,2) = abs(Traw3(:,2));
@@ -123,7 +123,7 @@ hold on;
 %%Plot tumbling omegas
 plot(Traw1(:,1),Traw1(:,2),'r');
 hold on;
-plot(Traw2(:,1),Traw2(:,2),'r');
+plot(Traw2(:,1),Traw2(:,2),'y');
 hold on;
 plot(Traw3(:,1),Traw3(:,2),'r');
 hold on;
