@@ -19,12 +19,15 @@ int rodX_ = 7;
 unsigned long t_in_S;
 int rom_add = 0;
 unsigned long last_mill = 0;
+void read_eeprom();
 
 void setup() {
 
   pinMode(coil_LED, OUTPUT);
   pinMode(idle_LED, OUTPUT);
   pinMode(idle_Pin,INPUT_PULLUP);
+
+  if (digitalRead(idle_Pin))  read_eeprom();
   while(digitalRead(idle_Pin))
   {                                                           //switch when on prevents the code from running
     digitalWrite(idle_LED, HIGH);
@@ -124,6 +127,26 @@ void find_error()                                             //finding gyro err
   Serial.println(Wy_e);
   Serial.print("GyroErrorZ: ");
   Serial.println(Wz_e);
+}
+
+void read_eeprom(){                                           //Function to read EEPROM
+  rom_add = 0;
+  float omegaZ;
+  unsigned long t_in_s;
+  Serial.begin(9600);
+  while(rom_add < 4096)
+    {
+      Serial.print(rom_add);
+      Serial.print("\t");
+      Serial.print(EEPROM.get(rom_add,omegaZ));
+      Serial.print("\t");
+      Serial.println(EEPROM.get(rom_add+sizeof(omegaZ),t_in_s));
+
+      rom_add = rom_add + sizeof(omegaZ)+sizeof(t_in_s);
+      delay(10);
+    }
+  Serial.end();
+  rom_add = 0;
 }
 
 void loop() {
