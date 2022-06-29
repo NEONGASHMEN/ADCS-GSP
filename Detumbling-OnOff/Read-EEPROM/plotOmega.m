@@ -4,19 +4,19 @@ clear
 
 Draw1 = importdata('./20-05/detumb_1.txt');
 Draw1(:,2) = abs(Draw1(:,2));
-Draw2 = importdata('./20-05/detumb_6.txt');
+Draw2 = importdata('./29-06/tumb_1.txt');
 Draw2(:,2) = abs(Draw2(:,2));
-Draw3 = importdata('./20-05/detumb_3.txt');
+Draw3 = importdata('./29-06/detumb_3.txt');
 Draw3(:,2) = abs(Draw3(:,2));
-Draw4 = importdata('./20-05/detumb_4.txt');
+Draw4 = importdata('./29-06/detumb_8.txt');
 Draw4(:,2) = abs(Draw4(:,2));
-Draw5 = importdata('./20-05/detumb_5.txt');
+Draw5 = importdata('./29-06/detumb_1.txt');
 Draw5(:,2) = abs(Draw5(:,2));
 D = {Draw1,Draw2,Draw3,Draw4,Draw5};
 
 Traw1 = importdata('./13-05/tumb_1.txt');
 Traw1(:,2) = abs(Traw1(:,2));
-Traw2 = importdata('./20-05/tumb_1.txt');
+Traw2 = importdata('./16-06/detumb_4.txt');
 Traw2(:,2) = abs(Traw2(:,2));
 Traw3 = importdata('./13-05/tumb_3.txt');
 Traw3(:,2) = abs(Traw3(:,2));
@@ -111,11 +111,11 @@ fig1 = figure();
 %%Plot detumbling omegas
 plot(Draw1(:,1),Draw1(:,2),'b');
 hold on;
-plot(Draw2(:,1),Draw2(:,2),'b');
+plot(Draw2(:,1),Draw2(:,2),'y');
 hold on;
 plot(Draw3(:,1),Draw3(:,2),'b');
 hold on;
-plot(Draw4(:,1),Draw4(:,2),'b');
+plot(Draw4(:,1),Draw4(:,2),'g');
 hold on;
 plot(Draw5(:,1),Draw5(:,2),'b');
 hold on;
@@ -123,8 +123,8 @@ hold on;
 %%Plot tumbling omegas
 plot(Traw1(:,1),Traw1(:,2),'r');
 hold on;
-% plot(Traw2(:,1),Traw2(:,2),'y');
-% hold on;
+plot(Traw2(:,1),Traw2(:,2),'y');
+hold on;
 plot(Traw3(:,1),Traw3(:,2),'r');
 hold on;
 plot(Traw4(:,1),Traw4(:,2),'r');

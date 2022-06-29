@@ -9,13 +9,16 @@ const int idle_Pin = 22;
 const int coil_LED = 24;
 const int idle_LED = 26;
 
-float mu_hat[] = {1,0,0};
+float muX_hat[] = {1,0,0};
+float muY_hat[] = {0,1,0};
 float B[3];
 float B_hat[3];
 float W[3];
 float Wx_e,Wy_e,Wz_e;
 int rodX = 8;
 int rodX_ = 7;
+int rodY = 6;
+int rodY_ = 5;
 unsigned long t_in_S;
 int rom_add = 0;
 unsigned long last_mill = 0;
@@ -134,6 +137,7 @@ void read_eeprom(){                                           //Function to read
   float omegaZ;
   unsigned long t_in_s;
   Serial.begin(9600);
+  digitalWrite(idle_LED, HIGH);
   while(rom_add < 4096)
     {
       Serial.print(rom_add);
@@ -146,6 +150,7 @@ void read_eeprom(){                                           //Function to read
       delay(10);
     }
   Serial.end();
+  digitalWrite(idle_LED, LOW);
   rom_add = 0;
 }
 
@@ -175,9 +180,14 @@ void loop() {
 
   
   float muXb[3];
-  cross(mu_hat,B,muXb);
+  cross(muX_hat,B,muXb);
   float muXb_hat[3];                                            //muXb_hat gives direction of torque
   unify(muXb,muXb_hat);
+
+  float muYb[3]; 
+  cross(muY_hat,B,muYb);
+  float muYb_hat[3];                                            //muYb_hat gives direction of torque
+  unify(muYb,muYb_hat);
 
   if(muXb_hat[2]*W[2] < 0)
   {
@@ -191,6 +201,20 @@ void loop() {
     analogWrite(rodX,0);
     digitalWrite(coil_LED,LOW);
     analogWrite(rodX_,255);
+  }
+
+  if(muYb_hat[2]*W[2] < 0)
+  {
+    analogWrite(rodY,255);                                      //NB: direction of mu is paralell to y - axis of the body frame (magnetometer)
+    digitalWrite(idle_LED,HIGH);  //dual
+    analogWrite(rodY_,0);
+  }
+
+  else
+  {
+    analogWrite(rodY,0);
+    digitalWrite(idle_LED,LOW);  //dual
+    analogWrite(rodY_,255);
   }
 
   if (rom_add<4096 && (millis()-last_mill)>100)
